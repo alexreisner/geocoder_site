@@ -1,0 +1,192 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+  <meta charset="utf-8"> 
+  <title>Ruby Geocoder</title> 
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.3.0/build/cssfonts/fonts-min.css&3.3.0/build/cssreset/reset-min.css&3.3.0/build/cssgrids/grids-min.css&3.3.0/build/cssbase/base-min.css" />
+  <style>
+    body { margin:auto; width:780px; color:#555; padding-bottom:40px; }
+    h2, h3 { color:#333; }
+    h3 { margin-top:24px; }
+    a { color:#555; }
+    th, td { border:none; }
+    code { color:#333; }
+    dt { font-weight:bold; margin-top:18px; }
+    .centered { text-align:center; }
+    .annotation { font-size:85%; color:#EE127B; font-style:italic; }
+    .block { margin-bottom:12px; }
+    .filename { font-weight:bold; font-size:85%; }
+    .separator { text-align:center; margin:24px 0; border-bottom:1px solid #EE127B; }
+  </style>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-3945186-12']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</head>
+<body>
+<div class="yui3-g">
+  <div class="yui3-u-5-12">
+
+<img src="images/logo.large.png" alt="Ruby Geocoder" style="margin:90px 0;" />
+<h2>Complete Ruby geocoding solution.</h2>
+
+<dl style="margin-top:40px;">
+  <dt>Install</dt>
+  <dd><code>gem install geocoder</code></dd>
+
+  <dt>Source code</dt>
+  <dd><a href="http://github.com/alexreisner/geocoder">github.com</a></dd>
+
+  <dt>API docs</dt>
+  <dd><a href="http://rdoc.info/github/alexreisner/geocoder/master/frames">rdoc.info</a></dd>
+
+  <!--
+  <dt>Report issues</dt>
+  <dd><a href="http://github.com/alexreisner/geocoder/issues">github.com/alexreisner/geocoder/issues</a></dd>
+  -->
+</dl>
+
+    </div>
+    <div class="yui3-u-7-12"><div style="padding-left:30px">
+
+
+<h3>Look up street addresses, IP addresses,<br />
+  and geographic coordinates</h3>
+
+<table>
+  <tr>
+    <td>"Eiffel Tower"<br /><span class="annotation">place name or address</span></td>
+    <td>&rarr;</td>
+    <td>48.8582, 2.2945<br /><span class="annotation">latitude, longitude</span></td>
+  </tr>
+  <tr>
+    <td>44.9817, -93.2783<br /><span class="annotation">latitude, longitude</span></td>
+    <td>&rarr;</td>
+    <td>350 7th St N, Minneapolis, MN<br /><span class="annotation">street address</span></td>
+  </tr>
+  <tr>
+    <td>24.193.83.1<br /><span class="annotation">IP address</span></td>
+    <td>&rarr;</td>
+    <td>40.728, -73.9453<br /><span class="annotation">latitude, longitude</span></td>
+  </tr>
+  <tr>
+    <td>24.193.83.1<br /><span class="annotation">IP address</span></td>
+    <td>&rarr;</td>
+    <td>Brooklyn, NY, US<br /><span class="annotation">street address</span></td>
+  </tr>
+</table>
+
+
+<h3>Perform geographic queries on ActiveRecord objects:<br />
+  (Mongoid and DataMapper coming soon)</h3>
+
+<p><code>Hotel.near(”Vancouver, Canada”)</code><br />
+<span class="annotation">find hotels near Vancouver</span></p>
+
+<p><code>@event.nearbys</code><br />
+<span class="annotation">find other events near @event</span></p>
+
+<p><code>@restaurant.distance_to(”Eiffel Tower”)</code><br />
+<span class="annotation">find distance between Eiffel Tower and @restaurant</span></p>
+
+<p><code>Geocoder::Calculations.geographic_center([<br />
+  &nbsp;&nbsp;@brooklyn_bridge,<br />
+  &nbsp;&nbsp;@chrysler_building,<br />
+  &nbsp;&nbsp;@madison_square_garden])</code><br />
+<span class="annotation">find geographic center of multiple places</span></p>
+
+
+<h3>Recipes (for Rails)</h3>
+
+<p>Given a <code>Venue</code> model with known street address, automatically fetch coordinates after validation and store in <code>latitude</code> and <code>longitude</code> attributes:</p>
+<div class="block"><code>
+  <span class="filename"># app/models/venue.rb</span><br />
+  geocoded_by :address<br />
+  after_validation :fetch_coordinates
+</code></div>
+
+
+<div class="separator"></div>
+
+
+<p>Given a <code>User</code> model with known IP address, automatically fetch coordinates and store in <code>lat</code> and <code>lon</code> attributes:</p>
+<div class="block"><code>
+  <span class="filename"># app/models/user.rb</span><br />
+  geocoded_by :ip_address,<br />
+  &nbsp;&nbsp;:latitude => :lat, :longitude => :lon<br />
+  after_validation :fetch_coordinates
+</code></div>
+
+
+<div class="separator"></div>
+
+
+<p>Given a <code>Place</code> model with known latitude/longitude coordinates, automatically fetch address and store in <code>location</code> attribute (stored in <code>address</code> attribute if <code>:address</code> option omitted):</p>
+<div class="block"><code>
+  <span class="filename"># app/models/place.rb</span><br />
+  reverse_geocoded_by :latitude, :longitude,<br />
+  &nbsp;&nbsp;:address => :location<br />
+  after_validation :fetch_address
+</code></div>
+
+
+<div class="separator"></div>
+
+
+<p>Given a <code>Place</code> model with known latitude/longitude coordinates, automatically fetch address components and store in separate attributes:</p>
+<div class="block"><code>
+  <span class="filename"># app/models/place.rb</span><br />
+  reverse_geocoded_by :lat, :lon do |obj,geo|<br />
+  &nbsp;&nbsp;obj.city &nbsp;&nbsp;&nbsp;= geo.city<br />
+  &nbsp;&nbsp;obj.zipcode = geo.postal_code<br />
+  &nbsp;&nbsp;obj.country = geo.country_code<br />
+  end<br />
+  after_validation :geocode
+</code></div>
+
+
+<div class="separator"></div>
+
+
+<p>Only try coordinates lookup if address changed since last save:</p>
+<div class="block"><code>
+  <span class="filename"># app/models/venue.rb</span><br />
+  geocoded_by ...<br />
+  after_validation :fetch_coordinates,<br />
+  &nbsp;&nbsp;:if => lambda{ |obj| obj.address_changed? }
+</code></div>
+
+
+<div class="separator"></div>
+
+
+<p>Detect current user's country and store in session:</p>
+<div class="block"><code>
+  <span class="filename"># app/controllers/application_controller.rb</span><br />
+  before_filter :detect_location<br />
+  def detect_location<br />
+  &nbsp;&nbsp;session[:country] = request.location.country_code<br />
+  end
+</code></div>
+
+
+
+  </div></div>
+</div>
+
+<div class="centered">
+  <p style="margin-top:50px">Geocoder gem and this web site by Alex Reisner.</p>
+  <a href="http://code.alexreisner.com">blog</a>
+  <a href="http://github.com/alexreisner">code</a>
+  <a href="http://www.alexreisner.com">personal</a>
+  <a href="http://www.worldsfastestanimal.com">business</a>
+</div>
+
+</body>
+</html>
