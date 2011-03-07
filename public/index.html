@@ -6,8 +6,9 @@
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.3.0/build/cssfonts/fonts-min.css&3.3.0/build/cssreset/reset-min.css&3.3.0/build/cssgrids/grids-min.css&3.3.0/build/cssbase/base-min.css" />
   <style>
     body { margin:auto; width:780px; color:#555; padding-bottom:40px; }
-    h2, h3 { color:#000; }
+    h2, h3, h4 { color:#000; }
     h3 { margin-top:24px; font-size:131%; }
+    h4 { margin-bottom:12px; }
     a { color:#555; }
     th, td { border:none; }
     code { color:#333; }
@@ -106,8 +107,9 @@
 <span class="annotation">find geographic center of multiple places</span></p>
 
 
-<h3>Recipes (for Rails)</h3>
+<h3>Examples (for Rails)</h3>
 
+<h4>Simple Geocoding by Street Address</h4>
 <p>Given a <code>Venue</code> model with known street address, automatically fetch coordinates after validation and store in <code>latitude</code> and <code>longitude</code> attributes:</p>
 <div class="block"><code>
   <span class="filename"># app/models/venue.rb</span><br />
@@ -119,6 +121,7 @@
 <div class="separator"></div>
 
 
+<h4>Simple Geocoding by IP Address</h4>
 <p>Given a <code>User</code> model with known IP address, automatically fetch coordinates and store in <code>lat</code> and <code>lon</code> attributes:</p>
 <div class="block"><code>
   <span class="filename"># app/models/user.rb</span><br />
@@ -131,6 +134,7 @@
 <div class="separator"></div>
 
 
+<h4>Simple Reverse Geocoding by Coordinates</h4>
 <p>Given a <code>Place</code> model with known latitude/longitude coordinates, automatically fetch address and store in <code>location</code> attribute (stored in <code>address</code> attribute if <code>:address</code> option omitted):</p>
 <div class="block"><code>
   <span class="filename"># app/models/place.rb</span><br />
@@ -143,6 +147,20 @@
 <div class="separator"></div>
 
 
+<h4>Only Geocode When Attributes Have Changed</h4>
+<p>Only look up coordinates if address changed since last save:</p>
+<div class="block"><code>
+  <span class="filename"># app/models/venue.rb</span><br />
+  geocoded_by ...<br />
+  after_validation :fetch_coordinates,<br />
+  &nbsp;&nbsp;:if => lambda{ |obj| obj.address_changed? }
+</code></div>
+
+
+<div class="separator"></div>
+
+
+<h4>Custom Handling of Detailed Geocoding Results</h4>
 <p>Given a <code>Place</code> model with known latitude/longitude coordinates, automatically fetch address components and store in separate attributes:</p>
 <div class="block"><code>
   <span class="filename"># app/models/place.rb</span><br />
@@ -158,19 +176,21 @@
 <div class="separator"></div>
 
 
-<p>Only try coordinates lookup if address changed since last save:</p>
+<h4>Forward and Reverse Geocoding on Same Model</h4>
+<p>Given a <code>Place</code> model, objects of which sometimes have a street address and sometimes have coordinates, automatically fetch and fill in whatever's missing, based on what's provided:</p>
 <div class="block"><code>
-  <span class="filename"># app/models/venue.rb</span><br />
-  geocoded_by ...<br />
-  after_validation :fetch_coordinates,<br />
-  &nbsp;&nbsp;:if => lambda{ |obj| obj.address_changed? }
+  <span class="filename"># app/models/place.rb</span><br />
+  geocoded_by :address<br />
+  reverse_geocoded_by :latitude, :longitude<br />
+  after_validation :geocode, :reverse_geocode
 </code></div>
 
 
 <div class="separator"></div>
 
 
-<p>Detect current user's country (using IP address) and store in session:</p>
+<h4>Detect Location of HTTP Request</h4>
+<p>Get current user's country (using IP address) and store in session:</p>
 <div class="block"><code>
   <span class="filename"># app/controllers/application_controller.rb</span><br />
   before_filter :detect_location<br />
