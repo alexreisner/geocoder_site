@@ -6,8 +6,8 @@
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.3.0/build/cssfonts/fonts-min.css&3.3.0/build/cssreset/reset-min.css&3.3.0/build/cssgrids/grids-min.css&3.3.0/build/cssbase/base-min.css" />
   <style>
     body { margin:auto; width:780px; color:#555; padding-bottom:40px; }
-    h2, h3 { color:#333; }
-    h3 { margin-top:24px; }
+    h2, h3 { color:#000; }
+    h3 { margin-top:24px; font-size:131%; }
     a { color:#555; }
     th, td { border:none; }
     code { color:#333; }
@@ -32,11 +32,13 @@
 <body>
 <div class="yui3-g">
   <div class="yui3-u-5-12">
+    <div class="centered">
 
-<img src="images/logo.large.png" alt="Ruby Geocoder" style="margin:90px 0;" />
-<h2>Complete Ruby geocoding solution.</h2>
+<img src="images/logo.large.png" alt="Ruby Geocoder" style="margin:90px 0 40px 0;" />
+<h2 style="font-weight:normal; color:#EE127B;">Complete Ruby geocoding solution.</h2>
 
-<dl style="margin-top:40px;">
+</div>
+<dl style="margin:80px 0 0 68px">
   <dt>Install</dt>
   <dd><code>gem install geocoder</code></dd>
 
@@ -53,7 +55,7 @@
 </dl>
 
     </div>
-    <div class="yui3-u-7-12"><div style="padding-left:30px"><div style="border-top:2px solid #EE127B;">
+    <div class="yui3-u-7-12"><div style="padding-left:34px"><div style="border-top:2px solid #EE127B;">
 
 
 <h3>Look up street addresses, IP addresses,<br />
@@ -83,8 +85,9 @@
 </table>
 
 
-<h3>Perform geographic queries on ActiveRecord objects:<br />
-  (Mongoid and DataMapper coming soon)</h3>
+<h3>Perform geographic queries<br />
+  on ActiveRecord objects<br />
+  <span style="font-weight:normal">(Mongoid and DataMapper coming soon)</span></h3>
 
 <p><code>Hotel.near(”Vancouver, Canada”)</code><br />
 <span class="annotation">find hotels near Vancouver</span></p>
@@ -166,7 +169,7 @@
 <div class="separator"></div>
 
 
-<p>Detect current user's country and store in session:</p>
+<p>Detect current user's country (using IP address) and store in session:</p>
 <div class="block"><code>
   <span class="filename"># app/controllers/application_controller.rb</span><br />
   before_filter :detect_location<br />
