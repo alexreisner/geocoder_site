@@ -112,7 +112,7 @@
 <div class="block"><code>
   <span class="filename"># app/models/venue.rb</span><br />
   geocoded_by :address<br />
-  after_validation :fetch_coordinates
+  after_validation :geocode
 </code></div>
 
 
@@ -124,7 +124,7 @@
   <span class="filename"># app/models/user.rb</span><br />
   geocoded_by :ip_address,<br />
   &nbsp;&nbsp;:latitude => :lat, :longitude => :lon<br />
-  after_validation :fetch_coordinates
+  after_validation :geocode
 </code></div>
 
 
@@ -136,7 +136,7 @@
   <span class="filename"># app/models/place.rb</span><br />
   reverse_geocoded_by :latitude, :longitude,<br />
   &nbsp;&nbsp;:address => :location<br />
-  after_validation :fetch_address
+  after_validation :reverse_geocode
 </code></div>
 
 
