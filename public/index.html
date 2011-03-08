@@ -107,7 +107,7 @@
 <span class="annotation">find geographic center of multiple places</span></p>
 
 
-<h3>Examples (for Rails)</h3>
+<h3>Use in Rails</h3>
 
 <h4>Simple Geocoding by Street Address</h4>
 <p>Given a <code>Venue</code> model with known street address, automatically fetch coordinates after validation and store in <code>latitude</code> and <code>longitude</code> attributes:</p>
@@ -189,14 +189,26 @@
 <div class="separator"></div>
 
 
+<h3>Use in Any Rack-Based Framework</h3>
+
 <h4>Detect Location of HTTP Request</h4>
-<p>Get current user's country (using IP address) and store in session:</p>
+<p>Get current user's city and country (using IP address). A <code>location</code> method is added to the standard <code>Rack::Request</code> which returns a <code>Geocoder::Result object</code>:</p>
 <div class="block"><code>
-  <span class="filename"># app/controllers/application_controller.rb</span><br />
-  before_filter :detect_location<br />
-  def detect_location<br />
-  &nbsp;&nbsp;session[:country] = request.location.country_code<br />
-  end
+  <span class="filename"># Rails controller or Sinatra app</span><br />
+  city = request.location.city<br />
+  country = request.location.country_code
+</code></div>
+<div class="separator"></div>
+
+
+<h3>Use Outside of Any Framework</h3>
+
+<h4>Search Geocoding API</h4>
+<p>Search for geographic information about a street address, IP address, or set of coordinates (<code>Geocoder.search</code> returns a <code>Geocoder::Result</code> object):</p>
+<div class="block"><code>
+  result = Geocoder.search("1 Twins Way, Minneapolis")<br />
+  result = Geocoder.search("44.981667, -93.27833")<br />
+  result = Geocoder.search("204.57.220.1")
 </code></div>
 
 
