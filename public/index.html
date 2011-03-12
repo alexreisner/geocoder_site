@@ -152,7 +152,7 @@
 <p>Only look up coordinates if address changed since last save:</p>
 <div class="block"><code>
   <span class="filename"># app/models/venue.rb</span><br />
-  geocoded_by ...<br />
+  geocoded_by :address<br />
   after_validation :geocode,<br />
   &nbsp;&nbsp;:if => lambda{ |obj| obj.address_changed? }
 </code></div>
