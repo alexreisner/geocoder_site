@@ -153,7 +153,7 @@
 <div class="block"><code>
   <span class="filename"># app/models/venue.rb</span><br />
   geocoded_by ...<br />
-  after_validation :fetch_coordinates,<br />
+  after_validation :geocode,<br />
   &nbsp;&nbsp;:if => lambda{ |obj| obj.address_changed? }
 </code></div>
 
