@@ -119,7 +119,7 @@
 </code></div>
 
 
-<div class="separator"></div>
+<%= separator %>
 
 
 <h4>Simple Geocoding by IP Address</h4>
@@ -132,7 +132,7 @@
 </code></div>
 
 
-<div class="separator"></div>
+<%= separator %>
 
 
 <h4>Simple Reverse Geocoding by Coordinates</h4>
@@ -145,7 +145,7 @@
 </code></div>
 
 
-<div class="separator"></div>
+<%= separator %>
 
 
 <h4>Only Geocode When Attributes Have Changed</h4>
@@ -158,7 +158,7 @@
 </code></div>
 
 
-<div class="separator"></div>
+<%= separator %>
 
 
 <h4>Custom Handling of Detailed Geocoding Results</h4>
@@ -174,7 +174,7 @@
 </code></div>
 
 
-<div class="separator"></div>
+<%= separator %>
 
 
 <h4>Forward and Reverse Geocoding on Same Model</h4>
@@ -187,7 +187,7 @@
 </code></div>
 
 
-<div class="separator"></div>
+<%= separator %>
 
 
 <h3>Use in Any Rack-Based Framework</h3>
@@ -199,7 +199,9 @@
   city = request.location.city<br />
   country = request.location.country_code
 </code></div>
-<div class="separator"></div>
+
+
+<%= separator %>
 
 
 <h3>Use Outside of Any Framework</h3>
@@ -208,7 +210,7 @@
 <p>Search for geographic information about a street address, IP address, or set of coordinates (<code>Geocoder.search</code> returns a <code>Geocoder::Result</code> object):</p>
 <div class="block"><code>
   result = Geocoder.search("1 Twins Way, Minneapolis")<br />
-  result = Geocoder.search("44.981667, -93.27833")<br />
+  result = Geocoder.search("44.981667,-93.27833")<br />
   result = Geocoder.search("204.57.220.1")
 </code></div>
 
