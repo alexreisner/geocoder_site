@@ -1,3 +1,10 @@
 = Ruby Geocoder Web Site
 
 This is the code for the web site at rubygeocoder.com, the purpose of which is to promote the +geocoder+ Ruby gem.
+
+== Deploy on Heroku
+
+  heroku addons:add custom_domains:basic
+  heroku domains:add rubygeocoder.com
+  heroku domains:add www.rubygeocoder.com
+
