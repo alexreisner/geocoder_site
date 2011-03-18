@@ -119,9 +119,9 @@
   <fieldset>
     <legend>Your detected location</legend>
     <code>
-      request.ip <%= '&nbsp;' * 13 %> # => "<strong><%= request.ip %></strong>"<br />
-      request.location.city &nbsp;&nbsp;&nbsp;# => "<strong><%= request.location.city %></strong>"<br />
-      request.location.country # => "<strong><%= request.location.country %></strong>"<br />
+      request.ip <%= '&nbsp;' * 13 %> # => "<strong id="user-ip"><%= request.ip %></strong>"<br />
+      request.location.city &nbsp;&nbsp;&nbsp;# => "<strong id="user-city"></strong>"<br />
+      request.location.country # => "<strong id="user-country"></strong>"<br />
     </code>
   </fieldset>
 
@@ -175,6 +175,12 @@ $('#search-form').submit(function(e){
     $('#result-longitude').html(data.coordinates[1]);
     $('#result-address').html(data.address);
     updateMap(mapUrl(data.address, data.coordinates));
+  });
+});
+$(function(){
+  $.getJSON('/locations/search', {"query": $('#user-ip').html()}, function(data){
+    $('#user-country').html(data.country);
+    $('#user-city').html(data.city);
   });
 });
 </script>
