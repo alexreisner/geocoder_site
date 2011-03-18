@@ -11,7 +11,7 @@
     h3 { margin-top:24px; font-size:131%; }
     h4 { margin-bottom:12px; }
     a { color:#555; }
-    th, td { border:none; }
+    th, td { border:none; vertical-align:top; }
     code { color:#333; }
     dt { font-weight:bold; margin-top:18px; }
     input { border:1px solid #ccc; padding:2px; }
@@ -22,6 +22,7 @@
     .block { margin-bottom:12px; }
     .filename { font-weight:bold; font-size:85%; }
     .separator { text-align:center; margin:24px 0; border-bottom:1px solid #EE127B; }
+    .tight td { padding:0px 4px; }
   </style>
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -118,11 +119,18 @@
 
   <fieldset>
     <legend>Your detected location</legend>
-    <code>
-      request.ip <%= '&nbsp;' * 13 %> # => "<strong id="user-ip"><%= request.ip %></strong>"<br />
-      request.location.city &nbsp;&nbsp;&nbsp;# => "<strong id="user-city"></strong>"<br />
-      request.location.country # => "<strong id="user-country"></strong>"<br />
-    </code>
+    <table class="tight">
+      <tr>
+        <td><code>request.ip</code></td><%= return_value_cell %>
+        <td><code>"<strong id="user-ip"><%= request.ip %></strong>"</code></td>
+      </tr><tr>
+        <td><code>request.location.city</code></td><%= return_value_cell %>
+        <td><code>"<strong id="user-city"></strong>"</code></td>
+      </tr><tr>
+        <td><code>request.location.country</code></td><%= return_value_cell %>
+        <td><code>"<strong id="user-country"></strong>"</code></td>
+      </tr>
+    </table>
   </fieldset>
 
   <fieldset>
@@ -134,11 +142,18 @@
     <br />
     <p class="annotation">Enter a street address, IP address, or latitude/longitude coordinates.</p>
     <div id="search-result" style="display:none;">
-      <code>
-        r.latitude &nbsp;# => <strong id="result-latitude"></strong><br />
-        r.longitude # => <strong id="result-longitude"></strong><br />
-        r.address &nbsp;&nbsp;# => "<strong id="result-address"></strong>"
-      </code><br /><br />
+      <table class="tight">
+        <tr>
+          <td><code>r.latitude</code></td><%= return_value_cell %>
+          <td><code><strong id="result-latitude"></strong></code></td>
+        </tr><tr>
+          <td><code>r.longitude</code></td><%= return_value_cell %>
+          <td><code><strong id="result-longitude"></strong></code></td>
+        </tr><tr>
+          <td><code>r.address</code></td><%= return_value_cell %>
+          <td><code>"<strong id="result-address"></strong>"</code></td>
+        </tr>
+      </table>
     </div>
   </fieldset>
 </form>

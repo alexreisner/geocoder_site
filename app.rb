@@ -29,6 +29,10 @@ helpers do
     hash.collect{ |p| p.map{ |i| i.inspect }.join(":") }.sort.join(",")
   end
 
+  def return_value_cell
+    "<td><code>#&nbsp;=></code></td>"
+  end
+
   def random_search_query
     sample_search_queries[rand(sample_search_queries.size)]
   end
