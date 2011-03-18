@@ -9,7 +9,12 @@ get '/' do
 end
 
 get '/locations/search' do
-  @result = Geocoder.search(params[:query])
+  if (query = params[:query]).match(/^[0-9\.\-]+, ?[0-9\.\-]+$/)
+    args = query.split(/, ?/)
+  else
+    args = query
+  end
+  @result = Geocoder.search(*args)
   erb :_location, :layout => false
 end
 
