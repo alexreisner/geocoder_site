@@ -170,7 +170,9 @@ function updateMap(src) {
 $('#search-form').submit(function(e){
   e.preventDefault();
   $.getJSON('/locations/search', {"query": $('#search-query').val()}, function(data){
-    $('#search-result').show()
+    if (!$('#search-result').is(':visible')) {
+      $('#search-result').slideDown();
+    }
     $('#result-latitude').html(data.coordinates[0]);
     $('#result-longitude').html(data.coordinates[1]);
     $('#result-address').html(data.address);
