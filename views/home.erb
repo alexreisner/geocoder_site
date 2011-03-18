@@ -1,9 +1,10 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-<head> 
-  <meta charset="utf-8"> 
-  <title>Ruby Geocoder</title> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ruby Geocoder</title>
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.3.0/build/cssfonts/fonts-min.css&3.3.0/build/cssreset/reset-min.css&3.3.0/build/cssgrids/grids-min.css&3.3.0/build/cssbase/base-min.css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
   <style>
     body { margin:auto; width:780px; color:#555; padding-bottom:40px; }
     h2, h3, h4 { color:#000; }
@@ -13,6 +14,9 @@
     th, td { border:none; }
     code { color:#333; }
     dt { font-weight:bold; margin-top:18px; }
+    input { border:1px solid #ccc; padding:2px; }
+    fieldset { border:1px solid #ccc; padding:8px; }
+    legend { font-size:85%; text-transform:uppercase; }
     .centered { text-align:center; }
     .annotation { font-size:85%; color:#EE127B; font-style:italic; }
     .block { margin-bottom:12px; }
@@ -37,7 +41,7 @@
     <div class="centered">
       <img src="images/logo.large.png" alt="Ruby Geocoder" style="margin:90px 0 40px 0;" />
       <h2 style="font-weight:normal; color:#EE127B;">Complete Ruby geocoding solution.</h2>
-      <p style="margin-top:26px">easy to use &bull; compatible with Ruby 1.8, 1.9, and JRuby &bull; choose Google or Yahoo geocoding API &bull; FreeGeoIP.net used for IP-based geocoding &bull; works with Rails, Sinatra, other Rack frameworks</p>
+      <p style="margin-top:26px">easy to use &bull; compatible with Ruby 1.8, 1.9, and JRuby &bull; result caching &bull; multi-lingual &bull; Google, Yahoo, Geocoder.ca, and FreeGeoIP geocoding services &bull; works with Rails, Sinatra, any Rack framework</p>
     </div>
     <dl style="margin:80px 0 0 68px">
       <dt>Install</dt>
@@ -106,6 +110,76 @@
   &nbsp;&nbsp;@chrysler_building,<br />
   &nbsp;&nbsp;@madison_square_garden])</code><br />
 <span class="annotation">find geographic center of multiple places</span></p>
+
+
+<h3>See it in action!</h3>
+
+<form id="search-form">
+
+  <fieldset>
+    <legend>Your detected location</legend>
+    <code>
+      request.ip <%= '&nbsp;' * 13 %> # => "<strong><%= request.ip %></strong>"<br />
+      request.location.city &nbsp;&nbsp;&nbsp;# => "<strong><%= request.location.city %></strong>"<br />
+      request.location.country # => "<strong><%= request.location.country %></strong>"<br />
+    </code>
+  </fieldset>
+
+  <fieldset>
+    <legend>Custom search</legend>
+    <code>r = Geocoder.search(</code>
+    <input type="text" id="search-query" name="search-query" />
+    <code>)</code>
+    <input type="submit" id="search-button" value="Go" />
+    <br />
+    <p class="annotation">Enter a street address, IP address, or latitude/longitude coordinates.</p>
+    <!--<select name="language">
+      <option value="en">English</option>
+    </select>-->
+    <div id="search-result" style="display:none;">
+      <code>
+        r.latitude &nbsp;# => <strong id="result-latitude"></strong><br />
+        r.longitude # => <strong id="result-longitude"></strong><br />
+        r.address &nbsp;&nbsp;# => "<strong id="result-address"></strong>"
+      </code><br /><br />
+    </div>
+  </fieldset>
+</form>
+<script>
+function mapUrl(address, coords) {
+  var params = {
+    size   : "400x130",
+    maptype: "roadmap",
+    sensor : "false",
+    center : coords.join(','),
+    zoom   : 12,
+    style  : "feature:all|element:all|saturation:-100",
+    markers: "color:0xEE127B|" + coords.join(',')
+  }
+//http://maps.google.com/maps/api/staticmap?sensor=false&size=500x300&zoom=9&center=Sao+Paulo+Brazil&style=feature:water|saturation:100|hue:0xff5e00|gamma:0.58&style=feature:landscape|invert_lightness:true&style=element:labels|visibility:off&style=feature:poi|hue:0x0800ff|ligtness:-70&style=feature:administrative|element:geometry|visibility:off
+  return "http://maps.google.com/maps/api/staticmap?" + $.param(params);
+}
+function updateMap(src) {
+  var id = 'result-map';
+  if ($('#' + id).length == 0) { // create if doesn't exist
+    $('#search-result').append('<img id="' + id + '" src="' + src + '" />');
+  } else {
+    $('#' + id).attr('src', src);
+  }
+}
+$('#search-form').submit(function(e){
+  e.preventDefault();
+  $.getJSON('/locations/search', {"query": $('#search-query').val()}, function(data){
+    $('#search-result').show()
+    $('#result-latitude').html(data.coordinates[0]);
+    $('#result-longitude').html(data.coordinates[1]);
+    $('#result-address').html(data.address);
+    updateMap(mapUrl(data.address, data.coordinates));
+  });
+});
+</script>
+
+<div id="results"></div>
 
 
 <h3>Use in Rails</h3>
