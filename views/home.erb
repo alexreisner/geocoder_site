@@ -146,9 +146,11 @@
   </fieldset>
 </form>
 <script>
+function mapWidth(){ return 400; }
+function mapHeight(){ return 130; }
 function mapUrl(address, coords) {
   var params = {
-    size   : "400x130",
+    size   : mapWidth() + "x" + mapHeight(),
     maptype: "roadmap",
     sensor : "false",
     center : coords.join(','),
@@ -156,23 +158,22 @@ function mapUrl(address, coords) {
     style  : "feature:all|element:all|saturation:-100",
     markers: "color:0xEE127B|" + coords.join(',')
   }
-//http://maps.google.com/maps/api/staticmap?sensor=false&size=500x300&zoom=9&center=Sao+Paulo+Brazil&style=feature:water|saturation:100|hue:0xff5e00|gamma:0.58&style=feature:landscape|invert_lightness:true&style=element:labels|visibility:off&style=feature:poi|hue:0x0800ff|ligtness:-70&style=feature:administrative|element:geometry|visibility:off
   return "http://maps.google.com/maps/api/staticmap?" + $.param(params);
 }
 function updateMap(src) {
   var id = 'result-map';
   if ($('#' + id).length == 0) { // create if doesn't exist
-    $('#search-result').append('<img id="' + id + '" src="' + src + '" />');
+    $('#search-result').append('<img width = "' + mapWidth() +
+      '" height="' + mapHeight() + '" id="' + id + '" src="' + src + '" />');
   } else {
     $('#' + id).attr('src', src);
   }
 }
 $('#search-form').submit(function(e){
   e.preventDefault();
+  if (!$('#search-result').is(':visible'))
+    $('#search-result').slideDown();
   $.getJSON('/locations/search', {"query": $('#search-query').val()}, function(data){
-    if (!$('#search-result').is(':visible')) {
-      $('#search-result').slideDown();
-    }
     $('#result-latitude').html(data.coordinates[0]);
     $('#result-longitude').html(data.coordinates[1]);
     $('#result-address').html(data.address);
