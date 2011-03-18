@@ -28,4 +28,23 @@ helpers do
   def to_json(hash)
     hash.collect{ |p| p.map{ |i| i.inspect }.join(":") }.sort.join(",")
   end
+
+  def random_search_query
+    sample_search_queries[rand(sample_search_queries.size)]
+  end
+
+  def sample_search_queries
+    [
+      "Paris, France",
+      "Paris, Texas",
+      "405 Lexington Avenue, NY",
+      "1 Twins Way, Minneapolis",
+      "Taj Mahal, Agra, India",
+      "Acropolis, Theorias, Athens",
+      "51.178844, -1.826189", # Stonehenge
+      "29.979175, 31.134358", # Great Pyramid of Giza
+      "Tiananmen Square, Beijing",
+      "-34.609653, -58.392581", # Argentine National Congress
+    ]
+  end
 end

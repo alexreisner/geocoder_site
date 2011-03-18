@@ -128,14 +128,11 @@
   <fieldset>
     <legend>Custom search</legend>
     <code>r = Geocoder.search(</code>
-    <input type="text" id="search-query" name="search-query" />
+    <input type="text" id="search-query" name="search-query" value="<%= random_search_query %>" />
     <code>)</code>
     <input type="submit" id="search-button" value="Go" />
     <br />
     <p class="annotation">Enter a street address, IP address, or latitude/longitude coordinates.</p>
-    <!--<select name="language">
-      <option value="en">English</option>
-    </select>-->
     <div id="search-result" style="display:none;">
       <code>
         r.latitude &nbsp;# => <strong id="result-latitude"></strong><br />
