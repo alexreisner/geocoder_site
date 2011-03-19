@@ -7,4 +7,4 @@ This is the code for the web site at rubygeocoder.com, the purpose of which is t
   heroku addons:add custom_domains:basic
   heroku domains:add rubygeocoder.com
   heroku domains:add www.rubygeocoder.com
-
+  heroku addons:add redistogo:nano
