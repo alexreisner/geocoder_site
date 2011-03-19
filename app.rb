@@ -2,8 +2,6 @@ require 'rubygems'
 require 'sinatra'
 require 'geocoder'
 
-Geocoder::Configuration.lookup = :yahoo
-
 get '/' do
   erb :home
 end
