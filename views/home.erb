@@ -287,6 +287,24 @@ $(function(){
 <%= separator %>
 
 
+<h4>Sort Nearby Places By Distance</h4>
+<p>Given a <code>Place</code> object with known latitude/longitude coordinates, find the closest places and display their distance away:</p>
+<div class="block"><code>
+  <span class="filename"># app/controllers/places.erb</span><br />
+  @nearbys = @place.nearbys(50, :order => "distance")<br />
+  <br />
+  <span class="filename"># app/views/places/show.html.erb</span><br />
+  <%=h "<ul>" %><br />
+  &lt;% for p in @nearbys %&gt;<br />
+  &nbsp;&nbsp;<%=h "<li>" %>&lt;%= p.name %&gt; (&lt;%= p.distance %&gt; miles)<%=h "</li>" %><br />
+  &lt;% end %&gt;<br />
+  <%=h "</ul>" %><br />
+</code></div>
+
+
+<%= separator %>
+
+
 <h3>Use in Any Rack-Based Framework</h3>
 
 <h4>Detect Location of HTTP Request</h4>

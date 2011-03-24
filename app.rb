@@ -20,6 +20,8 @@ error do
 end
 
 helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
 
   def separator
     '<div class="separator"></div>'
