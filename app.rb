@@ -7,7 +7,7 @@ get '/' do
 end
 
 get '/locations/search' do
-  @result = Geocoder.search(params[:query])
+  @result = Geocoder.search(params[:query]).first
   erb :_location, :layout => false
 end
 

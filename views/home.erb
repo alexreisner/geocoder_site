@@ -135,7 +135,7 @@
 
   <fieldset>
     <legend>Custom search</legend>
-    <code>r = Geocoder.search(</code>
+    <code>s = Geocoder.search(</code>
     <input type="text" id="search-query" name="search-query" style="width:180px" value="<%= random_search_query %>" />
     <code>)</code>
     <input type="submit" id="search-button" value="Go" />
@@ -144,13 +144,13 @@
     <div id="search-result" style="display:none;">
       <table class="tight">
         <tr>
-          <td><code>r.latitude</code></td><%= return_value_cell %>
+          <td><code>s[0].latitude</code></td><%= return_value_cell %>
           <td><code><strong id="result-latitude"></strong></code></td>
         </tr><tr>
-          <td><code>r.longitude</code></td><%= return_value_cell %>
+          <td><code>s[0].longitude</code></td><%= return_value_cell %>
           <td><code><strong id="result-longitude"></strong></code></td>
         </tr><tr>
-          <td><code>r.address</code></td><%= return_value_cell %>
+          <td><code>s[0].address</code></td><%= return_value_cell %>
           <td><code>"<strong id="result-address"></strong>"</code></td>
         </tr>
       </table>
@@ -256,14 +256,16 @@ $(function(){
 <%= separator %>
 
 
-<h4>Custom Handling of Detailed Geocoding Results</h4>
+<h4>Custom Handling of Detailed Reverse Geocoding Results</h4>
 <p>Given a <code>Place</code> model with known latitude/longitude coordinates, automatically fetch address components and store in separate attributes:</p>
 <div class="block"><code>
   <span class="filename"># app/models/place.rb</span><br />
-  reverse_geocoded_by :lat, :lon do |obj,geo|<br />
-  &nbsp;&nbsp;obj.city &nbsp;&nbsp;&nbsp;= geo.city<br />
-  &nbsp;&nbsp;obj.zipcode = geo.postal_code<br />
-  &nbsp;&nbsp;obj.country = geo.country_code<br />
+  reverse_geocoded_by :lat, :lon do |obj,results|<br />
+  &nbsp;&nbsp;if geo = results.first<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;obj.city &nbsp;&nbsp;&nbsp;= geo.city<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;obj.zipcode = geo.postal_code<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;obj.country = geo.country_code<br />
+  &nbsp;&nbsp;end<br />
   end<br />
   after_validation :reverse_geocode
 </code></div>
@@ -302,11 +304,11 @@ $(function(){
 <h3>Use Outside of Any Framework</h3>
 
 <h4>Search Geocoding API</h4>
-<p>Search for geographic information about a street address, IP address, or set of coordinates (<code>Geocoder.search</code> returns a <code>Geocoder::Result</code> object):</p>
+<p>Search for geographic information about a street address, IP address, or set of coordinates (<code>Geocoder.search</code> returns an array of <code>Geocoder::Result</code> objects):</p>
 <div class="block"><code>
-  result = Geocoder.search("1 Twins Way, Minneapolis")<br />
-  result = Geocoder.search("44.981667,-93.27833")<br />
-  result = Geocoder.search("204.57.220.1")
+  Geocoder.search("1 Twins Way, Minneapolis")<br />
+  Geocoder.search("44.981667,-93.27833")<br />
+  Geocoder.search("204.57.220.1")
 </code></div>
 
 
