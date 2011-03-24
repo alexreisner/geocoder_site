@@ -291,7 +291,7 @@ $(function(){
 <p>Given a <code>Place</code> object with known latitude/longitude coordinates, find the closest places and display their distance away:</p>
 <div class="block"><code>
   <span class="filename"># app/controllers/places.erb</span><br />
-  @nearbys = @place.nearbys(50, :order => "distance")<br />
+  @nearbys = @place.nearbys(50, :order =&gt; "distance")<br />
   <br />
   <span class="filename"># app/views/places/show.html.erb</span><br />
   <%=h "<ul>" %><br />
@@ -300,6 +300,22 @@ $(function(){
   &lt;% end %&gt;<br />
   <%=h "</ul>" %><br />
 </code></div>
+
+
+<%= separator %>
+
+
+<h4>Find the Bearing (Direction) Between Places</h4>
+<p>Given a <code>Place</code> model with geocoded objects, find the distance and direction of the closest ones:</p>
+<div class="block"><code>
+  nearbys = Place.near("Omaha, NE", 50,<br />
+  &nbsp;&nbsp;:order =&gt; "distance")<br />
+  bearing = nearbys.first.bearing # =&gt; 46.12<br />
+  Geocoder::Calculations.compass_point(<br />
+  &nbsp;&nbsp;bearing) # =&gt; "NE"
+</code></div>
+
+<p>The <code>bearing</code> attribute is a number between 0 and 360 indicating the number of degrees clockwise from due North (eg: 180 = South, 270 = West).</p>
 
 
 <%= separator %>
