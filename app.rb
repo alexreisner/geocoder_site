@@ -1,10 +1,22 @@
 require 'rubygems'
 require 'sinatra'
 require 'geocoder'
-require 'redis'
 
-Geocoder::Configuration.cache = Redis.new
-Geocoder::Configuration.cache_prefix = "geocoder-site:"
+configure do
+  require 'redis'
+  if ENV['HEROKU_TYPE']
+    uri = URI.parse(ENV["REDISTOGO_URL"])
+    config = {
+      :host => uri.host,
+      :port => uri.port,
+      :password => uri.password
+    }
+  else
+    config = {}
+  end
+  Geocoder::Configuration.cache = Redis.new(config)
+  Geocoder::Configuration.cache_prefix = "geocoder-site:"
+end
 
 get '/' do
   erb :home
