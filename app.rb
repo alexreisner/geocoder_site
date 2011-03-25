@@ -57,10 +57,10 @@ helpers do
       "1 Twins Way, Minneapolis",
       "Taj Mahal, Agra, India",
       "Acropolis, Theorias, Athens",
-      "51.178844, -1.826189", # Stonehenge
-      "29.979175, 31.134358", # Great Pyramid of Giza
       "Tiananmen Square, Beijing",
-      "-34.609653, -58.392581", # Argentine National Congress
+      "51.178844,-1.826189", # Stonehenge
+      "29.979175,31.134358", # Great Pyramid of Giza
+      "-34.609653,-58.392581", # Argentine National Congress
     ]
   end
 end
