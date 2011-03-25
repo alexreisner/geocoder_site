@@ -1,6 +1,10 @@
 require 'rubygems'
 require 'sinatra'
 require 'geocoder'
+require 'redis'
+
+Geocoder::Configuration.cache = Redis.new
+Geocoder::Configuration.cache_prefix = "geocoder-site:"
 
 get '/' do
   erb :home

@@ -3,6 +3,7 @@ GEM
   specs:
     geocoder (0.9.11)
     rack (1.2.2)
+    redis (2.1.1)
     sinatra (1.2.0)
       rack (~> 1.1)
       tilt (< 2.0, >= 1.2.2)
@@ -13,4 +14,5 @@ PLATFORMS
 
 DEPENDENCIES
   geocoder (= 0.9.11)
+  redis (= 2.1.1)
   sinatra (= 1.2.0)
