@@ -23,12 +23,7 @@ get '/' do
 end
 
 get '/locations/search' do
-  if coordinates?(params[:query])
-    coords = params[:query].split(/\s*,\s*/).map{ |i| i.to_f }
-    @result = Geocoder.search(*coords).first
-  else
-    @result = Geocoder.search(params[:query]).first
-  end
+  @result = Geocoder.search(params[:query]).first
   erb :_location, :layout => false
 end
 
@@ -38,11 +33,6 @@ end
 
 error do
   '500 Internal Server Error'
-end
-
-def coordinates?(string)
-  l = Geocoder.send(:lookup)
-  l.send(:coordinates?, string)
 end
 
 helpers do
