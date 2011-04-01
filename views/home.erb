@@ -83,11 +83,6 @@
   <tr>
     <td>24.193.83.1<br /><span class="annotation">IP address</span></td>
     <td>&rarr;</td>
-    <td>40.728, -73.9453<br /><span class="annotation">latitude, longitude</span></td>
-  </tr>
-  <tr>
-    <td>24.193.83.1<br /><span class="annotation">IP address</span></td>
-    <td>&rarr;</td>
     <td>Brooklyn, NY, US<br /><span class="annotation">street address</span></td>
   </tr>
 </table>
@@ -104,7 +99,10 @@
 <span class="annotation">find other events near @event</span></p>
 
 <p><code>@restaurant.distance_to(”Eiffel Tower”)</code><br />
-<span class="annotation">find distance between Eiffel Tower and @restaurant</span></p>
+<span class="annotation">find distance from @restaurant to Eiffel Tower</span></p>
+
+<p><code>@restaurant.bearing_to(”Eiffel Tower”)</code><br />
+<span class="annotation">find direction from @restaurant to Eiffel Tower</span></p>
 
 <p><code>Geocoder::Calculations.geographic_center([<br />
   &nbsp;&nbsp;@brooklyn_bridge,<br />
