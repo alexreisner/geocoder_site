@@ -42,7 +42,7 @@
     <div class="centered">
       <img src="images/logo.large.png" alt="Ruby Geocoder" style="margin:90px 0 40px 0;" />
       <h2 style="font-weight:normal; color:#EE127B;">Complete Ruby geocoding solution.</h2>
-      <p style="margin-top:26px">easy to use &bull; compatible with Ruby 1.8, 1.9, and JRuby &bull; result caching &bull; multi-lingual &bull; Google, Yahoo, Geocoder.ca, and FreeGeoIP geocoding services &bull; works with Rails, Sinatra, any Rack framework</p>
+      <p style="margin-top:26px">easy to use &bull; supports Ruby 1.8, 1.9, and JRuby &bull; compatible with ActiveRecord and Mongoid &bull; built-in result caching &bull; multi-lingual &bull; Google, Yahoo, Geocoder.ca, and FreeGeoIP geocoding services &bull; works with Rails, Sinatra, any Rack framework</p>
     </div>
     <dl style="margin:80px 0 0 68px">
       <dt>Install</dt>
@@ -89,8 +89,7 @@
 
 
 <h3>Perform geographic queries<br />
-  on ActiveRecord objects<br />
-  <span style="font-weight:normal">(Mongoid and DataMapper coming soon)</span></h3>
+  on ActiveRecord and Mongoid objects</h3>
 
 <p><code>Hotel.near(”Vancouver, Canada”)</code><br />
 <span class="annotation">find hotels near Vancouver</span></p>
@@ -201,7 +200,9 @@ $(function(){
 <div id="results"></div>
 
 
-<h3>Use in Rails</h3>
+<h3>ActiveRecord Examples</h3>
+
+<p style="margin-bottom:24px">(Mongoid is very similar; please see README for details.)</p>
 
 <h4>Simple Geocoding by Street Address</h4>
 <p>Given a <code>Venue</code> model with known street address, automatically fetch coordinates after validation and store in <code>latitude</code> and <code>longitude</code> attributes:</p>
@@ -301,7 +302,7 @@ $(function(){
 <%= separator %>
 
 
-<h3>Use in Any Rack-Based Framework</h3>
+<h3>In Any Rack-Based Framework</h3>
 
 <h4>Detect Location of HTTP Request</h4>
 <p>Get current user's city and country (using IP address). A <code>location</code> method is added to the standard <code>Rack::Request</code> which returns a <code>Geocoder::Result object</code>:</p>
@@ -315,7 +316,7 @@ $(function(){
 <%= separator %>
 
 
-<h3>Use Outside of Any Framework</h3>
+<h3>Outside of Any Framework</h3>
 
 <h4>Search Geocoding API</h4>
 <p>Search for geographic information about a street address, IP address, or set of coordinates (<code>Geocoder.search</code> returns an array of <code>Geocoder::Result</code> objects):</p>
