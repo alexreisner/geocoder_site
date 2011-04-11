@@ -23,8 +23,12 @@ get '/' do
 end
 
 get '/locations/search' do
-  @result = Geocoder.search(params[:query]).first
-  erb :_location, :layout => false
+  if (query = params[:query]).nil?
+    "Please search by using the form at <a href=\"http://www.rubygeocoder.com\">RubyGeocoder.com</a> (requires JavaScript)."
+  else
+    @result = Geocoder.search(query).first
+    erb :_location, :layout => false
+  end
 end
 
 not_found do
