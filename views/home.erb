@@ -136,6 +136,7 @@
     <input type="text" id="search-query" name="search-query" style="width:180px" value="<%= random_search_query %>" />
     <code>)</code>
     <input type="submit" id="search-button" value="Go" />
+    <img src="images/spinner.gif" id="spinner" style="display:none" />
     <br />
     <p class="annotation">Enter a street address, IP address, or latitude/longitude coordinates.</p>
     <div id="search-result" style="display:none;">
@@ -178,8 +179,17 @@ function updateMap(src) {
     $('#' + id).attr('src', src);
   }
 }
+function showSpinner(){
+  $('#search-button').hide();
+  $('#spinner').show();
+}
+function hideSpinner(){
+  $('#search-button').show();
+  $('#spinner').hide();
+}
 $('#search-form').submit(function(e){
   e.preventDefault();
+  showSpinner();
   if (!$('#search-result').is(':visible'))
     $('#search-result').slideDown();
   $.getJSON('/locations/search', {"query": $('#search-query').val()}, function(data){
@@ -187,6 +197,7 @@ $('#search-form').submit(function(e){
     $('#result-longitude').html(data.coordinates[1]);
     $('#result-address').html(data.address);
     updateMap(mapUrl(data.address, data.coordinates));
+    hideSpinner();
   });
 });
 $(function(){
