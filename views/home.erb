@@ -42,7 +42,7 @@
     <div class="centered">
       <img src="images/logo.large.png" alt="Ruby Geocoder" style="margin:90px 0 40px 0;" />
       <h2 style="font-weight:normal; color:#EE127B;">Complete Ruby geocoding solution.</h2>
-      <p style="margin-top:26px">easy to use &bull; supports Ruby 1.8, 1.9, and JRuby &bull; compatible with ActiveRecord and Mongoid &bull; built-in result caching &bull; multi-lingual &bull; Google, Yahoo, Geocoder.ca, and FreeGeoIP geocoding services &bull; works with Rails, Sinatra, any Rack framework</p>
+      <p style="margin-top:26px">easy to use &bull; supports Ruby 1.8, 1.9, and JRuby &bull; compatible with ActiveRecord and Mongoid &bull; built-in result caching &bull; multi-lingual &bull; Google, Yahoo, Bing, Geocoder.ca, Yandex.ru, and FreeGeoIP geocoding services &bull; works with Rails, Sinatra, any Rack framework &bull; command line interface</p>
     </div>
     <dl style="margin:80px 0 0 68px">
       <dt>Install</dt>
@@ -337,6 +337,36 @@ $(function(){
   Geocoder.search("204.57.220.1")
 </code></div>
 
+
+<%= separator %>
+
+
+<h3>Command Line Interface</h3>
+
+<h4>Search Geocoding API</h4>
+<p>The command line interface works just like the <code>Geocoder.search</code> method and allows you to set various configuration options like geocoding service, language, etc. You can also get the raw JSON response (or URL) from the geocoding API:</p>
+<div class="block"><code>
+  <strong>$ geocode -s geocoder_ca "44.981667,-93.27833"</strong><br />
+  Latitude:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;44.981165<br />
+  Longitude:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-93.279225<br />
+  Full address:&nbsp;&nbsp;&nbsp;&nbsp;380 7th St N, Minneapolis, ...<br />
+  City:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Minneapolis<br />
+  State/province:&nbsp;&nbsp;MN<br />
+  Postal code:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;55403<br />
+  Country:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;United States<br />
+  <br />
+  <strong>$ geocode --json "1 Twins Way, Minneapolis"</strong><br />
+  {<br />
+  &nbsp;&nbsp;"status": "OK",<br />
+  &nbsp;&nbsp;"results": [ {<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;"types": [ "street_address" ],<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;"formatted_address": "536 1/2 N 3rd St...",<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;...<br />
+  &nbsp;&nbsp;} ]<br />
+  }
+</code></div>
+
+<p>For details see <code>geocode -h</code>.
 
   </div></div></div>
 </div>
