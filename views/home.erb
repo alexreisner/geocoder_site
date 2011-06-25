@@ -42,7 +42,7 @@
     <div class="centered">
       <img src="images/logo.large.png" alt="Ruby Geocoder" style="margin:90px 0 40px 0;" />
       <h2 style="font-weight:normal; color:#EE127B;">Complete Ruby geocoding solution.</h2>
-      <p style="margin-top:26px">easy to use &bull; supports Ruby 1.8, 1.9, and JRuby &bull; compatible with ActiveRecord and Mongoid &bull; result caching &bull; proxy support &bull; multi-lingual &bull; Google, Yahoo, Bing, Geocoder.ca, Yandex.ru, and FreeGeoIP geocoding services &bull; works with Rails, Sinatra, any Rack framework &bull; command line interface</p>
+      <p style="margin-top:26px">easy to use &bull; supports Ruby 1.8, 1.9, and JRuby &bull; compatible with ActiveRecord, Mongoid, MongoMapper &bull; result caching &bull; proxy support &bull; multi-lingual &bull; Google, Yahoo, Bing, Geocoder.ca, Yandex.ru, and FreeGeoIP geocoding services &bull; works with Rails, Sinatra, any Rack framework &bull; command line interface</p>
     </div>
     <dl style="margin:80px 0 0 68px">
       <dt>Install</dt>
@@ -88,8 +88,7 @@
 </table>
 
 
-<h3>Perform geographic queries<br />
-  on ActiveRecord and Mongoid objects</h3>
+<h3>Perform geographic queries using objects</h3>
 
 <p><code>Hotel.near(”Vancouver, Canada”)</code><br />
 <span class="annotation">find hotels near Vancouver</span></p>
@@ -213,7 +212,7 @@ $(function(){
 
 <h3>ActiveRecord Examples</h3>
 
-<p style="margin-bottom:24px">(Mongoid is very similar; please see <a href="http://github.com/alexreisner/geocoder#readme">README</a> for details.)</p>
+<p style="margin-bottom:24px">(Mongoid and MongoMapper are very similar; please see <a href="http://github.com/alexreisner/geocoder#readme">README</a> for details.)</p>
 
 <h4>Simple Geocoding by Street Address</h4>
 <p>Given a <code>Venue</code> model with known street address, automatically fetch coordinates after validation and store in <code>latitude</code> and <code>longitude</code> attributes:</p>
