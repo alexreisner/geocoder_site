@@ -51,6 +51,14 @@ helpers do
     hash.collect{ |p| p.map{ |i| i.inspect }.join(":") }.sort.join(",")
   end
 
+  def map_width
+    400
+  end
+
+  def map_height
+    130
+  end
+
   def return_value_cell
     "<td><code>#&nbsp;=></code></td>"
   end

@@ -151,15 +151,14 @@
           <td><code>"<strong id="result-address"></strong>"</code></td>
         </tr>
       </table>
+      <img src="" id="result-map" width="<%= map_width %>" height="<%= map_height %>" />
     </div>
   </fieldset>
 </form>
 <script>
-function mapWidth(){ return 400; }
-function mapHeight(){ return 130; }
 function mapUrl(address, coords) {
   var params = {
-    size   : mapWidth() + "x" + mapHeight(),
+    size   : "<%= map_width %>x<%= map_height %>",
     maptype: "roadmap",
     sensor : "false",
     center : coords.join(','),
@@ -170,13 +169,7 @@ function mapUrl(address, coords) {
   return "http://maps.google.com/maps/api/staticmap?" + $.param(params);
 }
 function updateMap(src) {
-  var id = 'result-map';
-  if ($('#' + id).length == 0) { // create if doesn't exist
-    $('#search-result').append('<img width = "' + mapWidth() +
-      '" height="' + mapHeight() + '" id="' + id + '" src="' + src + '" />');
-  } else {
-    $('#' + id).attr('src', src);
-  }
+  $('#result-map').attr('src', src);
 }
 function showSpinner(){
   $('#search-button').hide();
