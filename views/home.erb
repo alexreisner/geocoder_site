@@ -157,7 +157,7 @@
 </form>
 <script>
 function mapUrl(address, coords) {
-  var params = {
+  return "http://maps.google.com/maps/api/staticmap?" + $.param({
     size   : "<%= map_width %>x<%= map_height %>",
     maptype: "roadmap",
     sensor : "false",
@@ -165,8 +165,7 @@ function mapUrl(address, coords) {
     zoom   : 12,
     style  : "feature:all|element:all|saturation:-100",
     markers: "color:0xEE127B|" + coords.join(',')
-  }
-  return "http://maps.google.com/maps/api/staticmap?" + $.param(params);
+  });
 }
 function updateMap(src) {
   $('#result-map').attr('src', src);
