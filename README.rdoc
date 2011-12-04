@@ -9,3 +9,11 @@ This is the code for the web site at rubygeocoder.com, the purpose of which is t
   heroku domains:add rubygeocoder.com
   heroku domains:add www.rubygeocoder.com
   heroku addons:add redistogo:nano
+  heroku addons:add scheduler:standard
+
+Schedule cache expiration to run via scheduler:
+
+  heroku addons:open scheduler
+
+  # then set up:
+  rake cache:expire
