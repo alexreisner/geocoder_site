@@ -4,10 +4,11 @@ This is the code for the web site at rubygeocoder.com, the purpose of which is t
 
 == Deploy on Heroku
 
-  heroku domains:add rubygeocoder.com
-  heroku domains:add www.rubygeocoder.com
+  heroku addons:add quotaguard:test
   heroku addons:add redistogo:nano
   heroku addons:add scheduler:standard
+  heroku domains:add rubygeocoder.com
+  heroku domains:add www.rubygeocoder.com
 
 Schedule cache expiration to run via scheduler:
 

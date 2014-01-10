@@ -3,19 +3,27 @@ require 'sinatra'
 require 'geocoder'
 
 configure do
-  require 'redis'
-  if ENV['HEROKU_TYPE']
+  if ENV["REDISTOGO_URL"]
+    require 'redis'
     uri = URI.parse(ENV["REDISTOGO_URL"])
-    config = {
+    cache = Redis.new(
       :host => uri.host,
       :port => uri.port,
       :password => uri.password
-    }
+    )
   else
-    config = {}
+    cache = nil
   end
-  Geocoder::Configuration.cache = Redis.new(config)
-  Geocoder::Configuration.cache_prefix = "geocoder-site:"
+  if ENV['QUOTAGUARD_URL']
+    proxy =  ENV['QUOTAGUARD_URL'].sub(/^http:\/\//, '')
+  else
+    proxy = nil
+  end
+  Geocoder.configure(
+    http_proxy: proxy,
+    cache: cache,
+    cache_prefix: "geocoder-site:"
+  )
 end
 
 get '/' do
