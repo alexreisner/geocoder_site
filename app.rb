@@ -15,7 +15,7 @@ configure do
     cache = nil
   end
   if ENV['QUOTAGUARD_URL']
-    proxy =  ENV['QUOTAGUARD_URL'].sub(/^http:\/\//, '')
+    proxy = ENV['QUOTAGUARD_URL']
   else
     proxy = nil
   end
