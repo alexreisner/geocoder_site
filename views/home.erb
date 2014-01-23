@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <title>Ruby Geocoder</title>
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?3.3.0/build/cssfonts/fonts-min.css&3.3.0/build/cssreset/reset-min.css&3.3.0/build/cssgrids/grids-min.css&3.3.0/build/cssbase/base-min.css" />
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
   <style>
     body { margin:auto; width:780px; color:#555; padding-bottom:40px; }
     h2, h3, h4 { color:#000; }
@@ -106,99 +105,6 @@
   &nbsp;&nbsp;@chrysler_building,<br />
   &nbsp;&nbsp;@madison_square_garden])</code><br />
 <span class="annotation">find geographic center of multiple places</span></p>
-
-
-<h3>See it in action!</h3>
-
-<form id="search-form">
-
-  <fieldset>
-    <legend>Your detected location</legend>
-    <table class="tight">
-      <tr>
-        <td><code>request.ip</code></td><%= return_value_cell %>
-        <td><code>"<strong id="user-ip"><%= request.ip %></strong>"</code></td>
-      </tr><tr>
-        <td><code>request.location.city</code></td><%= return_value_cell %>
-        <td><code>"<strong id="user-city"></strong>"</code></td>
-      </tr><tr>
-        <td><code>request.location.country</code></td><%= return_value_cell %>
-        <td><code>"<strong id="user-country"></strong>"</code></td>
-      </tr>
-    </table>
-  </fieldset>
-
-  <fieldset>
-    <legend>Custom search</legend>
-    <code>s = Geocoder.search(</code>
-    <input type="text" id="search-query" name="search-query" style="width:180px" value="<%= random_search_query %>" />
-    <code>)</code>
-    <input type="submit" id="search-button" value="Go" />
-    <img src="images/spinner.gif" id="spinner" style="display:none" />
-    <br />
-    <p class="annotation">Enter a street address, IP address, or latitude/longitude coordinates.</p>
-    <div id="search-result" style="display:none;">
-      <table class="tight">
-        <tr>
-          <td><code>s[0].latitude</code></td><%= return_value_cell %>
-          <td><code><strong id="result-latitude"></strong></code></td>
-        </tr><tr>
-          <td><code>s[0].longitude</code></td><%= return_value_cell %>
-          <td><code><strong id="result-longitude"></strong></code></td>
-        </tr><tr>
-          <td><code>s[0].address</code></td><%= return_value_cell %>
-          <td><code>"<strong id="result-address"></strong>"</code></td>
-        </tr>
-      </table>
-      <img src="" id="result-map" width="<%= map_width %>" height="<%= map_height %>" />
-    </div>
-  </fieldset>
-</form>
-<script>
-function mapUrl(address, coords) {
-  return "http://maps.google.com/maps/api/staticmap?" + $.param({
-    size   : "<%= map_width %>x<%= map_height %>",
-    maptype: "roadmap",
-    sensor : "false",
-    center : coords.join(','),
-    zoom   : 12,
-    style  : "feature:all|element:all|saturation:-100",
-    markers: "color:0xEE127B|" + coords.join(',')
-  });
-}
-function updateMap(src) {
-  $('#result-map').attr('src', src);
-}
-function showSpinner(){
-  $('#search-button').hide();
-  $('#spinner').show();
-}
-function hideSpinner(){
-  $('#search-button').show();
-  $('#spinner').hide();
-}
-$('#search-form').submit(function(e){
-  e.preventDefault();
-  showSpinner();
-  if (!$('#search-result').is(':visible'))
-    $('#search-result').slideDown();
-  $.getJSON('/locations/search', {"query": $('#search-query').val()}, function(data){
-    $('#result-latitude').html(data.coordinates[0]);
-    $('#result-longitude').html(data.coordinates[1]);
-    $('#result-address').html(data.address);
-    updateMap(mapUrl(data.address, data.coordinates));
-    hideSpinner();
-  });
-});
-$(function(){
-  $.getJSON('/locations/search', {"query": $('#user-ip').html()}, function(data){
-    $('#user-country').html(data.country);
-    $('#user-city').html(data.city);
-  });
-});
-</script>
-
-<div id="results"></div>
 
 
 <h3>ActiveRecord Examples</h3>
