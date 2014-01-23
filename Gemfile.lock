@@ -1,14 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    geocoder (1.1.9)
     kgio (2.8.1)
     rack (1.5.2)
     rack-protection (1.5.1)
       rack
     raindrops (0.12.0)
     rake (10.0.4)
-    redis (2.1.1)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -23,8 +21,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  geocoder (= 1.1.9)
   rake (= 10.0.4)
-  redis (= 2.1.1)
   sinatra (= 1.4.4)
   unicorn (= 4.7.0)
